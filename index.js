@@ -23,6 +23,8 @@ var twitterclient = new Twitter({
 //Get twitter stream
 twitterclient.stream('statuses/filter', {track: process.env.TRACK_PARAMS}, function(stream) {
   stream.on('data', function(tweet) {
+  	console.log("Got tweet!")
+  	console.log(tweet);
     dynamo_post(tweet);
   });
  
@@ -36,10 +38,15 @@ var dynamo_post=function(tweet) {
 	var params = {
 		TableName:process.env.TABLE_NAME,
 		Item: {
-				tweet:{S:JSON.stringify(tweet)}
+				tweet:{S:tweet.id.toString()},
+				text:{S:tweet.text},
+				username:{S:tweet.user.screen_name},
+				user:{S:JSON.stringify(tweet.user)},
+				data:{S:JSON.stringify(tweet)}
 		}
 	}
 	dynamodb.putItem(params, function(err, data) {
-		console.log(data);
+		if (err) console.log(err);
+		else console.log(data);
 	})
 };
