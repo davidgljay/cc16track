@@ -1,0 +1,11 @@
+{
+  "name": "cc16",
+  "version": "1.0.0",
+  "description": "A quick script in a docker container which saves tweets to #cc16 to a dynamodb instance.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David Jay",
+  "license": "ISC"
+}
