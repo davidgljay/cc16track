@@ -1,3 +1,4 @@
+'use strict';
 
 var AWS = require('aws-sdk'),
 Twitter = require('twitter');
@@ -20,7 +21,7 @@ var twitterclient = new Twitter({
 });
 
 //Get twitter stream
-client.stream('statuses/filter', {track: process.env.TRACK_PARAMS}, function(stream) {
+twitterclient.stream('statuses/filter', {track: process.env.TRACK_PARAMS}, function(stream) {
   stream.on('data', function(tweet) {
     dynamo_post(tweet);
   });
